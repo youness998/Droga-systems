@@ -1,0 +1,26 @@
+
+name: DrogaPlugin
+version: 1.0.0
+main: com.drogaplugin.Main
+api-version: 1.21
+description: Plugin per raccogliere marijuana solo in aree protette
+author: YourName
+
+commands:
+  droga:
+    description: Comando principale del plugin droga
+    usage: /droga <info|raccogli|claim|vendi|unclaim|help>
+    aliases: [marijuana, weed]
+
+permissions:
+  droga.collect:
+    description: Permesso per raccogliere la droga
+    default: true
+
+  droga.claim:
+    description: Permesso per creare e rimuovere claim
+    default: op
+
+  droga.info:
+    description: Permesso per visualizzare informazioni sulla droga
+    default: true

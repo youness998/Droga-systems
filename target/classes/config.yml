@@ -1,0 +1,36 @@
+
+# config.yml per DrogaPlugin
+
+# Messaggi personalizzati
+success-message: "Hai raccolto %count% marijuana!"
+error-message: "Non puoi raccogliere la droga qui, sei fuori dal claim!"
+loading-message: "Caricamento in corso... %time% secondi rimanenti."
+excited-message: "Sei eccitato! Ti senti veloce e energico!"
+claim-creation-message: "Claim creato con successo tra le coordinate %start% e %end%!"
+claim-removal-message: "Claim rimosso con successo! I giocatori ora non possono più raccogliere la droga."
+claim-error-message: "Errore: Non hai i permessi per creare o rimuovere claim."
+
+# Impostazioni raccolta
+collection:
+  time-seconds: 6
+  min-items: 2
+  max-items: 5
+  require-tall-grass: true
+
+# Effetti della marijuana
+effects:
+  speed:
+    duration: 600  # 30 secondi in ticks
+    amplifier: 1   # Livello 2
+  jump:
+    duration: 600  # 30 secondi in ticks
+    amplifier: 1   # Livello 2
+  regeneration:
+    duration: 100  # 5 secondi in ticks
+    amplifier: 0   # Livello 1
+
+# Permessi
+permissions:
+  can-collect: "droga.collect"
+  can-claim: "droga.claim"
+  can-view-info: "droga.info"
