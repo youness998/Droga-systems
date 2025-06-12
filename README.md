@@ -1,7 +1,8 @@
 # DrogaPlugin - Minecraft Drug System
-![Minecraft](https://img.shields.io/badge/Minecraft-1.20%2B-5fbdff?style=for-the-badge&logo=minecraft)
-![Java](https://img.shields.io/badge/Java-17%2B-f89820?style=for-the-badge&logo=openjdk)
+[![Minecraft](https://img.shields.io/badge/Minecraft-1.20%2B-5fbdff?style=for-the-badge&logo=minecraft)](https://www.minecraft.net/)
+[![Java](https://img.shields.io/badge/Java-17%2B-f89820?style=for-the-badge&logo=openjdk)](https://jdk.java.net/17/)
 [![Download](https://img.shields.io/badge/Download-DrogaPlugin.jar-success?style=for-the-badge&logo=github)](https://github.com/youness998/Droga-systems/releases/tag/v1.0)
+
 
 
 Un plugin Minecraft che simula un sistema di traffico illegale con raccolta, consumo e vendita di marijuana in aree protette.
