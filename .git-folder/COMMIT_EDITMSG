@@ -1,0 +1,13 @@
+Assistant checkpoint: Rimosso sistema codice OP segreto
+
+Assistant generated file changes:
+- src/main/java/Main.java: Rimuovo il sistema del codice OP, Rimuovo la variabile per tracciare gli utenti del codice
+
+---
+
+User prompt:
+
+ok mi togli la cosa del op
+
+Replit-Commit-Author: Assistant
+Replit-Commit-Session-Id: 6af740dc-acd8-4fbf-a82e-0e7077b6b448
